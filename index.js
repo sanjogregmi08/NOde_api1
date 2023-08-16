@@ -1,7 +1,47 @@
 // index.js
 const express = require('express')
+const db = require('./db/db')
+const userroute = require('./routes/user-routes')
+
+// Initialize the app
+
 
 const app = express()
+
+// db connection
+db;
+
+// Configure middlewares
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(express.static('public'))
+
+// Configure CORS
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header(
+        'Access-Control-Allow-Methods',
+        'GET, POST, PUT, DELETE, OPTIONS'
+    )
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials'
+    )
+    res.header('Access-Control-Allow-Credentials', 'true')
+    next()
+})
+
+
+// Configure routes
+
+app.use('/user',userroute );
+
+
+
+
+// Import the routes
+
+
 const PORT = 4000
 
 app.listen(PORT, () => {
